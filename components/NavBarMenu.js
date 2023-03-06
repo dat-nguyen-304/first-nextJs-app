@@ -13,6 +13,7 @@ const NavbarMenu = () => {
                 <Nav.Link href="/posts">Posts</Nav.Link>
                 <Nav.Link href="/about">About</Nav.Link>
                 <Nav.Link href="/jokes/random">Jokes</Nav.Link>
+                <Nav.Link href="/books">Books</Nav.Link>
             </Nav>
         </Navbar>
     );

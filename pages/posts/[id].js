@@ -1,8 +1,16 @@
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Spinner } from 'react-bootstrap';
 import { getPostById, getPostIds } from '../../lib/posts';
 import Layout from '../../components/Layout';
-
+import { useRouter } from "next/router";
+import spinnerStyle from "../../styles/spinner.module.css";
 const Post = ({ post }) => {
+    const router = useRouter();
+    if (router.isFallback) {
+        return (
+            <Spinner animation='border' role='status' variant='dark' className={ spinnerStyle.spinnerLg } />
+        )
+    }
+
     return (
         <Layout>
             <Card key={ post.id } className="my-3 shadow">
@@ -24,12 +32,11 @@ const Post = ({ post }) => {
 }
 
 export const getStaticPaths = async () => { //code ở server
-    const paths = await getPostIds();
-    console.log(paths);
+    const paths = await getPostIds(5);
 
     return {
         paths,
-        fallback: false
+        fallback: true
     }
 }
 
@@ -38,7 +45,8 @@ export const getStaticProps = async ({ params }) => {
     return {
         props: {
             post
-        }
+        },
+        revalidate: 1
     }
 }
 

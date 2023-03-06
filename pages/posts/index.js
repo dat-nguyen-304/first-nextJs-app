@@ -27,7 +27,7 @@ const Posts = ({ posts }) => {
 }
 
 export const getStaticProps = async () => {
-    const posts = await getPosts();
+    const posts = await getPosts(10);
     return {
         props: {
             posts
